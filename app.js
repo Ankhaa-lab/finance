@@ -24,10 +24,9 @@ var appController = (function (uiController, financeController) {
   document.addEventListener("keypress", function (event) {
     //console.log(/*"Товч дарагдлаа " +*/ event);
     //Keecode -ийг http://keycodes.atjayjo.com/ гэх мэт сайтуудаас харж болно. Эсвэл дээрх байдлаар event нь дуудаж ажиллуулаад browser-ийн consol дээрээс нээгээд харж болно. Дээр үеийн browser дээр keycode гэж байхгүй which гэж байдаг тул мөн which -ийг шалгах хэрэгтэй.
+
     if (event.keyCode === 13 || event.which === 13) {
       ctrlAddItem();
-    } else {
-      console.log(" Өөр товч дарсан байна.");
     }
   });
 })(uiController, financeController);
