@@ -11,6 +11,10 @@ var uiController = (function () {
     addBtn: ".add__btn",
     incomeList: ".income__list",
     expenseList: ".expenses__list",
+    tusuvLabel: ".budget__value",
+    incomeLabel: ".budget__income--value",
+    expenseLabel: ".budget__expenses--value",
+    percentagelLabel: ".budget__expenses--percentage",
   };
   return {
     getInput: function () {
@@ -43,6 +47,21 @@ var uiController = (function () {
       // for (var i = 0; i < fieldsArr.length; i++) {
       //   fieldsArr[i].value = "";
       // }
+    },
+
+    tusviigUzuulekh: function (tusuv) {
+      document.querySelector(DOMstrings.tusuvLabel).textContent = tusuv.tusuv;
+      document.querySelector(DOMstrings.incomeLabel).textContent =
+        tusuv.totalsInc;
+      document.querySelector(DOMstrings.expenseLabel).textContent =
+        tusuv.totalsExp;
+      if (tusuv.huvi !== 0) {
+        document.querySelector(DOMstrings.percentagelLabel).textContent =
+          tusuv.huvi + "%";
+      } else {
+        document.querySelector(DOMstrings.percentagelLabel).textContent =
+          tusuv.huvi;
+      }
     },
 
     addListItem: function (item, type) {
@@ -121,7 +140,7 @@ var financeController = (function () {
       data.tusuv = data.totals.inc - data.totals.exp;
 
       // Орлого зарлагын хувийг тооцоолно.
-      data.huvi = Math.round(data.totals.exp / data.totals.inc / 100);
+      data.huvi = Math.round((data.totals.exp / data.totals.inc) * 100);
     },
 
     tusuviigAvah: function () {
@@ -186,8 +205,8 @@ var appController = (function (uiController, financeController) {
       var tusuv = financeController.tusuviigAvah();
 
       // 6. Төсвийн тооцоог дэлгэцэнд гаргана.
-
-      console.log(tusuv);
+      uiController.tusviigUzuulekh(tusuv);
+      //console.log(tusuv);
     }
   };
 
@@ -212,6 +231,13 @@ var appController = (function (uiController, financeController) {
   return {
     init: function () {
       console.log("Application started .....");
+      // програм эхлэхэд өгөгдлүүдийг нойллож өгөх функцийг доорх мөр кодонд бичие.
+      uiController.tusviigUzuulekh({
+        tusuv: 0,
+        huvi: 0,
+        totalsInc: 0,
+        totalsExp: 0,
+      });
       setupEventlisteners();
     },
   };
