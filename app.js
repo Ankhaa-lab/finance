@@ -69,6 +69,22 @@ var uiController = (function () {
         "-ны өдөр ";
     },
 
+    changeType: function () {
+      var fields = document.querySelectorAll(
+        DOMstrings.inputType +
+          ", " +
+          DOMstrings.inputDescription +
+          ", " +
+          DOMstrings.inputValue,
+      );
+
+      nodeListForeach(fields, function (el) {
+        el.classList.toggle("red-focus");
+      });
+
+      document.querySelector(DOMstrings.addBtn).classList.toggle("red-focus");
+    },
+
     getInput: function () {
       return {
         type: document.querySelector(DOMstrings.inputType).value, //inc, exp буюу +, - утгууд буцаана
@@ -355,6 +371,10 @@ var appController = (function (uiController, financeController) {
     document.querySelector(DOM.addBtn).addEventListener("click", function () {
       ctrlAddItem();
     });
+
+    document
+      .querySelector(DOM.inputType)
+      .addEventListener("change", uiController.changeType);
     document.addEventListener("keypress", function (event) {
       //console.log(/*"Товч дарагдлаа " +*/ event);
       //Keecode -ийг http://keycodes.atjayjo.com/ гэх мэт сайтуудаас харж болно. Эсвэл дээрх байдлаар event нь дуудаж ажиллуулаад browser-ийн consol дээрээс нээгээд харж болно. Дээр үеийн browser дээр keycode гэж байхгүй which гэж байдаг тул мөн which -ийг шалгах хэрэгтэй.
